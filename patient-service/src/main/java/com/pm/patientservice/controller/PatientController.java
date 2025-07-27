@@ -25,6 +25,6 @@ public class PatientController {
 
     @PostMapping("/add")
     public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
-        return   ResponseEntity.ok().body(patientService.createPatient(patientRequestDTO));
+        return ResponseEntity.ok().body(patientService.createPatient(patientRequestDTO));
     }
 }
