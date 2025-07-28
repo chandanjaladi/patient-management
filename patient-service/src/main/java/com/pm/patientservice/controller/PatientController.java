@@ -29,7 +29,7 @@ public class PatientController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<PatientResponseDTO> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
+    public ResponseEntity<PatientResponseDTO> createPatient(@Validated({Default.class, CreatePatientValidationGroup.class}) @RequestBody PatientRequestDTO patientRequestDTO) {
         return ResponseEntity.ok().body(patientService.createPatient(patientRequestDTO));
     }
 
@@ -37,5 +37,11 @@ public class PatientController {
     public ResponseEntity<PatientResponseDTO> updatePatient(@Validated({
         Default.class}) @RequestBody PatientRequestDTO patientRequestDTO, @PathVariable UUID id) {
         return ResponseEntity.ok().body(patientService.updatePatient(id,patientRequestDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePatient(@Valid @PathVariable UUID id) {
+        patientService.deletePatient(id);
+        return ResponseEntity.noContent().build();
     }
 }
